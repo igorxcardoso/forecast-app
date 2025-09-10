@@ -4,7 +4,7 @@ import './App.css'
 function App() {
   const [zip, setZip] = useState("")
   const [temperature, setTemperature] = useState(null)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState("")
   const [cached, setCached] = useState(false)
   const [address, setAddress] = useState("")
 
@@ -22,16 +22,18 @@ function App() {
         body: JSON.stringify({ zip: zip })
       })
 
-      if (!res.ok) {
-        throw new Error("Invalid or not found ZIP Code")
-      }
       const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.message || "An unexpected error occurred. Please try again.")
+      }
+
       setTemperature(data.currentTemperature)
       setCached(data.cached)
       setAddress(data.address || zip)
       setZip("")
     } catch (err) {
-      setError('An error occurred during the search, please try again!')
+      setError(err.message)
     }
   }
 

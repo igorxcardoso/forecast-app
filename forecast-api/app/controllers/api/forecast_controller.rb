@@ -4,7 +4,7 @@ class Api::ForecastController < ApplicationController
     geo = GeocodingService.extract_zip_and_coords(zip)
     
     if geo[:lat].nil? || geo[:lon].nil?
-      render json: { error: true, message: '' }, status: :bad_request
+      render json: { error: true, message: 'Invalid or not found ZIP Code' }, status: :bad_request
     else
       cache_key = "forecast:#{zip}"
       cached = Rails.cache.exist?(cache_key)
