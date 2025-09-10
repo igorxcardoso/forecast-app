@@ -11,7 +11,7 @@ class Api::ForecastController < ApplicationController
 
       forecast = Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
         data = WeatherService.fetch_by_coords(lat: geo[:lat], lon: geo[:lon])
-        data.dig('data_current', 'temperature')
+        data.dig('data_current', 'temperature')&.round(1)
       end
 
       Rails.logger.info("Cache hit for #{cache_key}: #{cached}")
