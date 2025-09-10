@@ -6,12 +6,15 @@ function App() {
   const [temperature, setTemperature] = useState(null)
   const [error, setError] = useState(null)
   const [cached, setCached] = useState(false)
+  const [address, setAddress] = useState("")
 
   const handleFetch = async () => {
     if (!zip) return
     try {
       setError(null)
       setTemperature(null)
+      setAddress("")
+
       const res = await fetch(
         `${import.meta.env.VITE_API_URL}/forecast`, {
         method: "POST",
@@ -25,6 +28,7 @@ function App() {
       const data = await res.json()
       setTemperature(data.currentTemperature)
       setCached(data.cached)
+      setAddress(data.address || zip)
       setZip("")
     } catch (err) {
       setError('An error occurred during the search, please try again!')
@@ -47,10 +51,11 @@ function App() {
           </div>
 
           {temperature !== null && (
-            <>
+            <div className="result-container">
+              <p className="address">📍 {address}</p>
               <p className="result">Current temperature: <strong>{temperature} °C</strong></p>
               {cached && <p className="cached-indicator">💾 Result from cache</p>} {}
-            </>
+            </div>
           )}
 
           {error && (

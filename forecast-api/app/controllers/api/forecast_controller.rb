@@ -1,6 +1,6 @@
 class Api::ForecastController < ApplicationController
   def create
-    zip = params[:zip]
+    zip = params[:zip]&.strip
     geo = GeocodingService.extract_zip_and_coords(zip)
     
     if geo[:lat].nil? || geo[:lon].nil?
@@ -18,7 +18,8 @@ class Api::ForecastController < ApplicationController
 
       render json: { 
         currentTemperature: forecast,
-        cached: cached
+        cached: cached,
+        address: geo[:address]
       }
     end
   end

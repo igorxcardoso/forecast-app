@@ -13,7 +13,8 @@ class GeocodingService
     {
       zip: (postcode || postal),
       lat: result&.latitude,
-      lon: result&.longitude
+      lon: result&.longitude,
+      address: result&.display_name
     }
   end
 end
