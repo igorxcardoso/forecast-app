@@ -88,13 +88,10 @@ bundle exec rspec
 
 You can add images to illustrate your app functionality. Use the following Markdown syntax:
 
-```markdown
-![Screenshot description](path/to/image.png)
-```
-
 Example:
 
 ![Erro](docs/image-error.png)
+![Invalid Zip Code](docs/image-invalid-zipcode.png)
 ![Forecast Result](docs/image-ok.png)
 ![Forecast Cached Result](docs/image-cached.png)
 
