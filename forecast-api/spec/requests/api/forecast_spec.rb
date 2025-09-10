@@ -27,7 +27,7 @@ RSpec.describe "Forecast API", type: :request do
       expect(response).to have_http_status(:bad_request)
       json = JSON.parse(response.body)
       expect(json['error']).to be true
-      expect(json['message']).to eq('')
+      expect(json['message']).to eq('Invalid or not found ZIP Code')
     end
   end
 
