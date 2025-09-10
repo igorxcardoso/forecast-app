@@ -41,7 +41,7 @@ Create a `.env` file in the project root and add your API key:
 METEOBLUE_API_KEY=your_api_key_here
 ```
 
-> **Note:** Do not commit your `.env` file to version control.
+> **Note:** Do not commit your `.env` file to version control. The key was sent by email to the interested party.
 
 Setup the database:
 
