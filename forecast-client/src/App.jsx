@@ -7,6 +7,8 @@ function App() {
   const [error, setError] = useState("")
   const [cached, setCached] = useState(false)
   const [address, setAddress] = useState("")
+  const [isDay, setIsDay] = useState(true)
+  const [localTime, setLocalTime] = useState("")
 
   const handleFetch = async () => {
     if (!zip) return
@@ -31,6 +33,8 @@ function App() {
       setTemperature(data.currentTemperature)
       setCached(data.cached)
       setAddress(data.address || zip)
+      setIsDay(data.isDay !== undefined ? data.isDay : true)
+      setLocalTime(data.localTime || "")
       setZip("")
     } catch (err) {
       setError(err.message)
@@ -56,7 +60,13 @@ function App() {
             <div className="result-container">
               <p className="address">📍 {address}</p>
               <p className="result">Current temperature: <strong>{temperature} °C</strong></p>
-              {cached && <p className="cached-indicator">💾 Result from cache</p>} {}
+              {cached && <p className="cached-indicator">💾 Result from cache</p>}
+              {localTime && (
+                <p className="local-time">
+                  🕒 Local time: {new Date(localTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}  
+                </p>
+              )}
+              <p className="day-night">{isDay ? "☀️ Day" : "🌙 Night"}</p>
             </div>
           )}
 
