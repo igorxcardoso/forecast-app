@@ -5,6 +5,7 @@ function App() {
   const [zip, setZip] = useState("")
   const [temperature, setTemperature] = useState(null)
   const [error, setError] = useState(null)
+  const [cached, setCached] = useState(false)
 
   const handleFetch = async () => {
     if (!zip) return
@@ -23,6 +24,7 @@ function App() {
       }
       const data = await res.json()
       setTemperature(data.currentTemperature)
+      setCached(data.cached)
       setZip("")
     } catch (err) {
       setError('An error occurred during the search, please try again!')
@@ -45,7 +47,10 @@ function App() {
           </div>
 
           {temperature !== null && (
-            <p className="result">Current temperature: <strong>{temperature} °C</strong></p>
+            <>
+              <p className="result">Current temperature: <strong>{temperature} °C</strong></p>
+              {cached && <p className="cached-indicator">💾 Result from cache</p>} {}
+            </>
           )}
 
           {error && (
