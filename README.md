@@ -92,7 +92,8 @@ Example:
 
 ![Erro](docs/image-error.png)
 ![Invalid Zip Code](docs/image-invalid-zipcode.png)
-![Forecast Result](docs/image-ok.png)
-![Forecast Cached Result](docs/image-cached.png)
+![Forecast Result](docs/image-ok-1.png)
+![Forecast Result](docs/image-ok-2.png)
+![Forecast Cached Result](docs/image-ok-1-cached.png)
 
 ---
