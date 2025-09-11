@@ -27,7 +27,7 @@ function App() {
       const data = await res.json()
 
       if (!res.ok) {
-        throw new Error(data.message || "An unexpected error occurred. Please try again.")
+        throw new Error(data.error || "An unexpected error occurred. Please try again.")
       }
 
       setTemperature(data.currentTemperature)
