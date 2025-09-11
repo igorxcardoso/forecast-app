@@ -9,10 +9,12 @@ function App() {
   const [address, setAddress] = useState("")
   const [isDay, setIsDay] = useState(true)
   const [localTime, setLocalTime] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleFetch = async () => {
     if (!zip) return
     try {
+      setLoading(true)
       setError(null)
       setTemperature(null)
       setAddress("")
@@ -38,6 +40,8 @@ function App() {
       setZip("")
     } catch (err) {
       setError(err.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -52,11 +56,14 @@ function App() {
               placeholder="ZIP Code"
               value={zip}
               onChange={(e) => setZip(e.target.value)}
+              disabled={loading}
             />
-            <button onClick={handleFetch}>Search</button>
+            <button onClick={handleFetch} disabled={loading}>Search</button>
           </div>
 
-          {temperature !== null && (
+          {loading && <div className="loader"></div>}
+
+          {!loading && temperature !== null && (
             <div className="result-container">
               <p className="address">📍 {address}</p>
               <p className="result">Current temperature: <strong>{temperature} °C</strong></p>
@@ -70,7 +77,7 @@ function App() {
             </div>
           )}
 
-          {error && (
+          {!loading && error && (
             <p className="error">{error}</p>
           )}
         </div>
