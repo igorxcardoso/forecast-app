@@ -19,5 +19,13 @@ def getAutoSaveInterval(n)
   b
 end
 
+# Recursiva
+def custom_fibonacci(n)
+  return 1 if n == 0
+  return 2 if n == 1
+  custom_fibonacci(n - 1) + custom_fibonacci(n - 2)
+end
+
 
 puts getAutoSaveInterval(10)
+puts custom_fibonacci(10)
