@@ -8,12 +8,18 @@ class WeatherService
 
   def self.fetch_by_coords(lat:, lon:, zip:)
     cache_key = "forecast:#{zip}"
-    cached = Rails.cache.exist?(cache_key)
+    cached = true
 
     data = Rails.cache.fetch(cache_key, expires_in: CACHE_TTL) do
       response = get('/current', query: {lat: lat, lon: lon, apikey: ENV.fetch('METEOBLUE_API_KEY')})
+      cached = false
+
       raise WeatherAPIError , "Weather API error. Please try again!" unless response.success?
+
       data_current = response.parsed_response.dig('data_current')
+
+      raise WeatherAPIError, "Weather API response missing data" if data_current.blank? || data_current.dig('temperature').nil?
+
       {
         temperature: data_current.dig('temperature'), 
         isdaylight: data_current.dig('isdaylight'),
