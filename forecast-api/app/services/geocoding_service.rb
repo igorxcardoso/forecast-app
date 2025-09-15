@@ -5,6 +5,7 @@ class GeocodingService
     raise ArgumentError, 'ZIP code blank' if postal.empty?
 
     result = Geocoder.search(postal).first
+    debugger
     raise AddressNotFound, "Could not find ZIP code" unless result
 
     postcode = (result.data.dig('address', 'postcode') if result.data) || (

@@ -8,6 +8,10 @@ def first_missing_positive(nums)
   while i < n
     correct_index = nums[i] - 1
 
+    # Precisa ser positivo
+    # Ser menor ou igual ao tamaanho do array
+    # Ser difente do item na posição
+
     if nums[i] > 0 && nums[i] <= n && nums[i] != nums[correct_index]
       # Se nums[i] estiver no intervalor, for menor que o tmanho do array, e for diferente do elemnto na posição correta
       # nums[i] != nums[correct_index]: Se nums[i] já é igual ao valor no lugar correto, trocar seria inútil (trocar valores iguais) e não convergiria.
@@ -16,6 +20,8 @@ def first_missing_positive(nums)
       temp = nums[i]
       nums[i] = nums[correct_index]
       nums[correct_index] = temp
+
+      # num[i], num[correct_index] = num[correct_index], num[i]
 
     else
       # Se nums[i] estiver fora do internavor (for negativo) incremento o index i
