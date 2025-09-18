@@ -1,0 +1,106 @@
+# Description
+
+# Implement a prototype email spam detection algorithm that analyzes email subjects for spam words.
+# Given n email subjects and k spam words in arrays subjects and spamWords, an email is classified as spam if its subject contains at least two spam words. Repeated spam words count individually, and spam words are not case-sensitive.
+# For each subject, return "spam" or "not_spam" based on the classification.
+
+# Example
+# subjects = ["free prize worth millions", "ten tips for a carefree lifestyle"]
+# spamWords = ["free", "money", "win", "millions"]
+
+# Analysis:
+# "free prize worth millions" contains "free" and "millions" (2 spam words) → "spam"
+# "ten tips for a carefree lifestyle" contains no spam words → "not_spam"
+
+# Return: ["spam", "not_spam"]
+# Function Description
+# Complete the function getSpamEmails in the editor with the following arguments:
+#     string subjects[n]: the subjects of the email
+#     string spamWords[k]: the spam words
+
+# Returns
+#     string[n]: the results of spam detection
+
+# Constraints
+
+# 1 ≤ n ≤ 10³
+# 1 ≤ k ≤ 10⁵
+# 1 ≤ length of subjects[i] ≤ 10⁵
+# 1 ≤ length of spamWords[i] ≤ 10⁵
+
+# The subjects and spam words consist of lowercase and uppercase English letters and spaces only.
+# Input Format For Custom Testing
+# The first line contains an integer, n, the number of elements in subjects.
+# Each of the next n lines contains a string, subjects[i].
+# The next line contains an integer, k, the number of elements in spam_words.
+# Each of the next n lines contains a string, spamWords[i].
+
+# Sample Case 0
+# Sample Input For Custom Testing
+# STDIN                     FUNCTION
+# -----                     --------
+# 2                   →     subjects[] size n = 2
+# I paid him paid     →     subjects = ["I paid him paid", "Summertime Sadness"]
+# Summertime Sadness
+# 3                   →     spamWords[] size k = 3
+# I                   →     spamWords = ["I", "Sadness", "paid"]
+# Sadness
+# paid
+
+
+# Sample Output
+
+# spam
+# not_spam
+
+
+# Explanation
+# The first subject contains three spam words, i.e., 2 "paid" and an "I". The second subject contains only a single spam word "Sadness".
+
+# Sample Case 1
+# Sample Input For Custom Testing
+# STDIN                        FUNCTION
+# -----                        --------
+# 2                      →     subjects[] size n = 2
+# Let it go              →     subjects = ["Let it go", "The right thing to do"]
+# The right thing to do
+# 5                      →     spamWords[] size k = 5
+# to                     →     spamWords = ["to", "do", "right", "go", "let"]
+# do
+# right
+# go
+# let
+
+# Sample Output
+# spam
+# spam
+
+# Explanation
+# The first subject contains two spam words: "go" and "let". Spam words are not case-sensitive. The second one contains three spam words: "to", "do", and "right".
+
+
+
+
+def getSpamEmails(subjects, spamWords)
+    # Write your code here    
+    count = []
+    subjects.each do |current_words|
+        flag = 0    
+        
+        spam_count = 0
+        current_words.split(' ').each do |word|
+            spam_count+=1 if spamWords.include?(word.downcase)
+            if spam_count == 2
+                flag = 1
+                count << "spam"
+                break
+            end
+        end
+        
+        if flag == 0
+            count << "not_spam"
+        end
+    end 
+    
+    count
+end
